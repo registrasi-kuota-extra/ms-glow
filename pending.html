@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Pembayaran - Running for Passion BALI 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --ocean-deep: #0A3D62;
+            --ocean-mid: #1B6CA8;
+            --ocean-light: #3DA5D9;
+            --teal: #06A77D;
+            --teal-light: #2DD4BF;
+            --sand: #F4E4BC;
+            --gold: #E8A317;
+            --gold-light: #F5C842;
+            --gold-pale: #FFF8E1;
+            --cream: #F8FBFD;
+            --white: #FFFFFF;
+            --text-dark: #0F1B2D;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+            --red: #DC2626;
+            --orange: #EA580C;
+            --yellow-bg: #FFFBEB;
+            --yellow-border: #FDE68A;
+            --yellow-text: #92400E;
+            --shadow-sm: 0 1px 3px rgba(10,61,98,0.08);
+            --shadow-md: 0 4px 16px rgba(10,61,98,0.1);
+            --shadow-lg: 0 12px 40px rgba(10,61,98,0.15);
+            --shadow-glow-ocean: 0 0 30px rgba(27,108,168,0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                radial-gradient(circle at 50% 20%, rgba(27,108,168,0.04) 0%, transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(232,163,23,0.04) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, var(--ocean-deep) 0%, var(--ocean-mid) 50%, var(--teal) 100%);
+            padding: 24px 24px 28px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(232,163,23,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: floatGlow 7s ease-in-out infinite;
+        }
+
+        @keyframes floatGlow {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-20px, 15px) scale(1.1); }
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--white);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== MAIN ===== */
+        .main-container {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 24px 16px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== STATUS CARD ===== */
+        .status-card {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg), var(--shadow-glow-ocean);
+            border: 1px solid rgba(27,108,168,0.08);
+            overflow: hidden;
+            animation: fadeUp 0.6s ease-out both;
+            position: relative;
+        }
+
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--ocean-mid), var(--teal), var(--gold));
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .status-top {
+            padding: 40px 24px 28px;
+            text-align: center;
+            position: relative;
+        }
+
+        .status-top::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 24px; right: 24px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ===== PENDING STATE ===== */
+        .status-icon-pending {
+            width: 84px; height: 84px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: var(--yellow-bg);
+            border: 3px solid var(--yellow-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            color: var(--gold);
+            position: relative;
+        }
+
+        .status-icon-pending::before {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--gold-light);
+            animation: rippleOut 2s ease-out infinite;
+        }
+
+        @keyframes rippleOut {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        .status-icon-pending i {
+            animation: spinSlow 4s linear infinite;
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .status-title-pending {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--yellow-text);
+            margin-bottom: 6px;
+        }
+
+        .status-desc-pending {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+
+        /* ===== EXPIRED STATE ===== */
+        .status-icon-expired {
+            width: 84px; height: 84px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: #FEF2F2;
+            border: 3px solid #FECACA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            color: var(--red);
+        }
+
+        .status-title-expired {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--red);
+            margin-bottom: 6px;
+        }
+
+        /* ===== DETAILS ===== */
+        .status-details {
+            padding: 20px 24px 24px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 7px 0;
+            font-size: 13px;
+        }
+
+        .detail-row .label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .detail-row .value {
+            font-weight: 600;
+            color: var(--text-dark);
+            text-align: right;
+            max-width: 60%;
+            word-break: break-word;
+        }
+
+        .detail-row.total {
+            border-top: 2px solid var(--ocean-mid);
+            margin-top: 10px;
+            padding-top: 12px;
+        }
+
+        .detail-row.total .label {
+            font-weight: 700;
+            color: var(--ocean-deep);
+        }
+
+        .detail-row.total .value {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--ocean-mid);
+        }
+
+        /* ===== INFO BOX ===== */
+        .info-box {
+            border-radius: 14px;
+            padding: 16px 18px;
+            margin-top: 16px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            animation: fadeUp 0.6s ease-out 0.15s both;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .info-box.yellow {
+            background: var(--yellow-bg);
+            border: 1px solid var(--yellow-border);
+        }
+
+        .info-box.teal {
+            background: #ECFDF5;
+            border: 1px solid #A7F3D0;
+        }
+
+        .info-box.red {
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+        }
+
+        .info-box i {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .info-box.yellow i { color: var(--gold); }
+        .info-box.teal i { color: var(--teal); }
+        .info-box.red i { color: var(--red); }
+
+        .info-box p {
+            font-size: 12.5px;
+            line-height: 1.6;
+        }
+
+        .info-box.yellow p { color: var(--yellow-text); }
+        .info-box.teal p { color: #065F46; }
+        .info-box.red p { color: #991B1B; }
+
+        /* ===== TICKET PREVIEW ===== */
+        .ticket-card {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(27,108,168,0.08);
+            margin-top: 16px;
+            overflow: hidden;
+            animation: fadeUp 0.6s ease-out 0.25s both;
+            position: relative;
+        }
+
+        .ticket-header {
+            background: linear-gradient(135deg, var(--ocean-deep), var(--ocean-mid));
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ticket-header::after {
+            content: '';
+            position: absolute;
+            top: -30px; right: -30px;
+            width: 80px; height: 80px;
+            background: radial-gradient(circle, rgba(232,163,23,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .ticket-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--white);
+            position: relative;
+            z-index: 1;
+        }
+
+        .ticket-header span {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(255,255,255,0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ticket-body {
+            padding: 18px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .ticket-field {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .ticket-field .tf-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ticket-field .tf-value {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .ticket-divider {
+            border: none;
+            border-top: 2px dashed var(--border);
+            margin: 0 20px;
+        }
+
+        .ticket-footer {
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ticket-footer .order-id {
+            font-family: monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .ticket-footer .qris-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--ocean-mid);
+            background: rgba(27,108,168,0.08);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        /* ===== ADMIN CONTACT ===== */
+        .admin-contact {
+            background: linear-gradient(135deg, #052E16 0%, #064E3B 100%);
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: 0 8px 24px rgba(6,78,59,0.2);
+            animation: fadeUp 0.6s ease-out 0.3s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-contact::before {
+            content: '';
+            position: absolute;
+            top: -20px; right: -20px;
+            width: 80px; height: 80px;
+            background: radial-gradient(circle, rgba(16,185,129,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .admin-icon {
+            width: 42px; height: 42px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #25D366;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .admin-text h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 2px;
+        }
+
+        .admin-text p {
+            font-size: 11.5px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .btn-wa {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #25D366;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 12.5px;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(37,211,102,0.3);
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+        }
+
+        .btn-wa:hover {
+            background: #1ebe5d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(37,211,102,0.4);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-group {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            animation: fadeUp 0.6s ease-out 0.35s both;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 13px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--ocean-mid), var(--teal));
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 16px rgba(27,108,168,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(27,108,168,0.4); }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 13px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover { border-color: var(--ocean-mid); color: var(--ocean-mid); }
+
+        .btn-danger {
+            width: 100%;
+            padding: 13px;
+            border: 1.5px solid #FECACA;
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--red);
+            background: #FEF2F2;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-danger:hover { background: #FEE2E2; border-color: #FCA5A5; }
+
+        /* ===== AUTO REFRESH INDICATOR ===== */
+        .refresh-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+            font-size: 11px;
+            color: var(--text-muted);
+            animation: fadeUp 0.6s ease-out 0.4s both;
+        }
+
+        .refresh-indicator .dot {
+            width: 6px; height: 6px;
+            background: var(--teal);
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        /* ===== NO DATA ===== */
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeUp 0.5s ease-out both;
+        }
+
+        .no-data i { font-size: 48px; color: var(--border); margin-bottom: 16px; }
+        .no-data h2 { font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+        .no-data p { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+        .no-data a {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 24px; background: var(--ocean-mid); color: var(--white);
+            border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 14px;
+            transition: all 0.25s ease;
+        }
+        .no-data a:hover { background: var(--ocean-deep); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 16px;
+            font-size: 11px;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+        .footer a { color: var(--ocean-mid); text-decoration: none; font-weight: 600; }
+
+        @media (max-width: 480px) {
+            .ticket-body { grid-template-columns: 1fr; }
+            .admin-contact { flex-direction: column; text-align: center; }
+            .admin-info { flex-direction: column; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <h1>Status Pembayaran</h1>
+        <p>Running for Passion BALI 2026</p>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main-container" id="mainContent">
+        <!-- Diisi oleh JavaScript -->
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        Running for Passion BALI 2026 &mdash; <a href="https://runningforpassion.id" target="_blank">runningforpassion.id</a>
+    </footer>
+
+    <script>
+        const rawData = localStorage.getItem('rfpbali_reg');
+        const mainContent = document.getElementById('mainContent');
+        const formatRp = (n) => 'Rp ' + n.toLocaleString('id-ID');
+
+        // Format tanggal
+        function formatTanggal(isoStr) {
+            const d = new Date(isoStr);
+            const bulan = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+            return `${d.getDate()} ${bulan[d.getMonth()]} ${d.getFullYear()}, ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+        }
+
+        if (!rawData) {
+            mainContent.innerHTML = `
+                <div class="no-data">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h2>Belum Ada Pendaftaran</h2>
+                    <p>Halaman ini memerlukan data pendaftaran. Silakan mulai dari halaman pendaftaran.</p>
+                    <a href="index.html"><i class="fas fa-arrow-left"></i> Kembali ke Pendaftaran</a>
+                </div>
+            `;
+        } else {
+            const data = JSON.parse(rawData);
+            const isExpired = data.status === 'expired';
+
+            if (isExpired) {
+                // ===== EXPIRED STATE =====
+                mainContent.innerHTML = `
+                    <div class="status-card">
+                        <div class="status-top">
+                            <div class="status-icon-expired">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <h2 class="status-title-expired">Waktu Pembayaran Habis</h2>
+                            <p class="status-desc-pending">
+                                Maaf, batas waktu pembayaran untuk pesanan Anda telah berakhir. Silakan lakukan pendaftaran ulang untuk mendapatkan kuota baru.
+                            </p>
+                        </div>
+                        <div class="status-details">
+                            <div class="detail-row">
+                                <span class="label">Order ID</span>
+                                <span class="value" style="font-family:monospace;font-size:12px;">${data.orderId}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Nama</span>
+                                <span class="value">${data.nama}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Kategori</span>
+                                <span class="value">${data.kategori}</span>
+                            </div>
+                            <div class="detail-row total">
+                                <span class="label">Nominal</span>
+                                <span class="value">${formatRp(data.harga)}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box red">
+                        <i class="fas fa-info-circle"></i>
+                        <p>
+                            Pesanan dengan ID <strong>${data.orderId}</strong> telah kedaluwarsa dan tidak dapat diproses lagi. Data peserta ini tidak disimpan dalam sistem.
+                        </p>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn-primary" onclick="daftarUlang()">
+                            <i class="fas fa-redo"></i> Daftar Ulang Sekarang
+                        </button>
+                    </div>
+                `;
+            } else {
+                // ===== PENDING STATE =====
+                mainContent.innerHTML = `
+                    <div class="status-card">
+                        <div class="status-top">
+                            <div class="status-icon-pending">
+                                <i class="fas fa-hourglass-half"></i>
+                            </div>
+                            <h2 class="status-title-pending">Menunggu Verifikasi</h2>
+                            <p class="status-desc-pending">
+                                Pembayaran Anda sedang dalam proses verifikasi oleh sistem. Mohon tunggu beberapa saat.
+                            </p>
+                        </div>
+                        <div class="status-details">
+                            <div class="detail-row">
+                                <span class="label">Order ID</span>
+                                <span class="value" style="font-family:monospace;font-size:12px;">${data.orderId}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Waktu Daftar</span>
+                                <span class="value">${formatTanggal(data.waktuDaftar)}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Nama</span>
+                                <span class="value">${data.nama}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">WhatsApp</span>
+                                <span class="value">${data.whatsapp}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Email</span>
+                                <span class="value">${data.email}</span>
+                            </div>
+                            <div class="detail-row total">
+                                <span class="label">Total Dibayar</span>
+                                <span class="value">${formatRp(data.harga)}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box yellow">
+                        <i class="fas fa-clock"></i>
+                        <p>
+                            Verifikasi pembayaran biasanya memakan waktu <strong>1-5 menit</strong>. Konfirmasi juga akan dikirimkan ke email <strong>${data.email}</strong> dan WhatsApp <strong>${data.whatsapp}</strong>.
+                        </p>
+                    </div>
+
+                    <div class="info-box teal">
+                        <i class="fas fa-check-circle"></i>
+                        <p>
+                            Setelah verifikasi berhasil, Anda akan menerima e-ticket melalui email berisi info jersey, dan panduan menuju Ocean Grand Beach Bali.
+                        </p>
+                    </div>
+
+                    <!-- TICKET PREVIEW -->
+                    <div class="ticket-card">
+                        <div class="ticket-header">
+                            <h3>Running for Passion BALI</h3>
+                            <span>2026</span>
+                        </div>
+                        <div class="ticket-body">
+                            <div class="ticket-field">
+                                <span class="tf-label">Peserta</span>
+                                <span class="tf-value">${data.nama}</span>
+                            </div>
+                            <div class="ticket-field">
+                                <span class="tf-label">Event</span>
+                                <span class="tf-value">${data.kategori}</span>
+                            </div>
+                            <div class="ticket-field">
+                                <span class="tf-label">Jersey</span>
+                                <span class="tf-value">Ukuran ${data.ukuran}</span>
+                            </div>
+                            <div class="ticket-field">
+                                <span class="tf-label">Gender</span>
+                                <span class="tf-value">${data.gender}</span>
+                            </div>
+                        </div>
+                        <hr class="ticket-divider">
+                        <div class="ticket-footer">
+                            <span class="order-id">${data.orderId}</span>
+                            <span class="qris-badge"><i class="fas fa-qrcode"></i> QRIS</span>
+                        </div>
+                    </div>
+
+                    <!-- ADMIN CONTACT -->
+                    <div class="admin-contact">
+                        <div class="admin-info">
+                            <div class="admin-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="admin-text">
+                                <h4>Butuh Bantuan?</h4>
+                                <p>Hubungi Admin via WhatsApp</p>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/6282385606518?text=Halo%20Admin,%20saya%20ingin%20menanyakan%20status%20pembayaran%20Order%20ID:%20${data.orderId}" target="_blank" class="btn-wa">
+                            <i class="fab fa-whatsapp"></i> 0823-8560-6518
+                        </a>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn-primary" onclick="refreshStatus(event)">
+                            <i class="fas fa-sync-alt"></i> Cek Ulang Status Pembayaran
+                        </button>
+                        <button class="btn-secondary" onclick="window.location.href='qris.html'">
+                            <i class="fas fa-qrcode"></i> Kembali ke Halaman QRIS
+                        </button>
+                        <button class="btn-danger" onclick="batalkanPesanan()">
+                            <i class="fas fa-trash-alt"></i> Batalkan Pesanan
+                        </button>
+                    </div>
+
+                    <div class="refresh-indicator">
+                        <span class="dot"></span>
+                        Halaman ini akan otomatis memeriksa status setiap 30 detik
+                    </div>
+                `;
+
+                // ===== AUTO REFRESH SETIAP 30 DETIK =====
+                setInterval(() => {
+                    // Di sistem nyata, di sini akan ada API call untuk cek status
+                    // Untuk demo, kita biarkan tetap pending
+                    console.log('[Auto-refresh] Mencek status pembayaran...', data.orderId);
+                }, 30000);
+            }
+        }
+
+        // ===== ACTIONS =====
+        function daftarUlang() {
+            localStorage.removeItem('rfpbali_reg');
+            window.location.href = 'index.html';
+        }
+
+        function refreshStatus(e) {
+            // Animasi tombol
+            const btn = e.target.closest('button');
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memeriksa status...';
+            btn.disabled = true;
+
+            // Simulasi pengecekan (di produksi, ini akan call API)
+            setTimeout(() => {
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+
+                // Tampilkan pesan bahwa masih pending
+                const infoBox = document.createElement('div');
+                infoBox.className = 'info-box yellow';
+                infoBox.style.marginTop = '12px';
+                infoBox.style.animation = 'fadeUp 0.4s ease-out both';
+                infoBox.innerHTML = `
+                    <i class="fas fa-info-circle"></i>
+                    <p>Pembayaran Anda masih dalam proses verifikasi. Silakan cek kembali dalam beberapa menit atau pantau email/WhatsApp Anda.</p>
+                `;
+                // Hapus info box sebelumnya jika ada
+                const prevInfo = document.querySelector('.btn-group + .info-box');
+                if (prevInfo) prevInfo.remove();
+                // Sisipkan setelah btn-group
+                document.querySelector('.btn-group').after(infoBox);
+                // Auto hilang setelah 5 detik
+                setTimeout(() => {
+                    infoBox.style.transition = 'opacity 0.3s ease';
+                    infoBox.style.opacity = '0';
+                    setTimeout(() => infoBox.remove(), 300);
+                }, 5000);
+            }, 2000);
+        }
+
+        function batalkanPesanan() {
+            if (confirm('Apakah Anda yakin ingin membatalkan pesanan ini? Tindakan ini tidak dapat dibatalkan.')) {
+                localStorage.removeItem('rfpbali_reg');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>
